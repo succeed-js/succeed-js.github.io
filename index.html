@@ -1,0 +1,355 @@
+<!doctype html>
+<html>
+  <head>
+    <!-- meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Ivan Stoyanov">
+    <meta name="description" content="succeed.js javascript front-end testing tool">
+    <meta name="keywords" content="succeed,succeed.js,javascript,testing,front-end,tool,framework,library">
+    <!-- content -->
+    <title>succeed.js - front-end testing tool</title>
+    <!-- css libraries -->
+    <link rel="stylesheet" type="text/css" href="css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="css/codemirror/codemirror.css">
+    <link rel="stylesheet" type="text/css" href="css/prism/prism.css">
+    <!-- js libraries -->
+    <script src="js/prism/prism.js"></script>
+    <script src="js/codemirror/codemirror.js"></script>
+    <script src="js/codemirror/javascript.js"></script>
+    <!-- css -->
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <!-- js -->
+    <script src="js/succeed.js" async></script>
+    <script src="js/script.js" async></script>
+  </head>
+  <body>
+    <!-- navigation -->
+    <div id="top">
+      <div id="nav-open" onclick="toggleNav()">
+        <div id="line-1" class="line"></div>
+        <div id="line-2" class="line"></div>
+        <div id="line-3" class="line"></div>
+      </div>
+      <span id="top-head">Succeed.js</span>
+    </div>
+
+    <div id="nav-panel">
+      <div id="nav-close" onclick="toggleNav()">
+          <div id="line-1" class="line"></div>
+          <div id="line-2" class="line"></div>
+      </div>
+
+      <ul class="nav-list">
+        <li><a href="#succeed-js">Succeed.js</a></li>
+        <li><a href="#succeed-js-about">About</a></li>
+        <li><a href="#succeed-js-download">Download</a></li>
+      </ul>
+
+      <ul class="nav-list">
+        <li><a href="#examples">Examples</a></li>
+        <li><a href="#examples-basic">Basic</a></li>
+        <li><a href="#examples-advanced">Advanced</a></li>
+      </ul>
+
+      <ul class="nav-list">
+        <li><a href="#methods">Methods</a></li>
+        <li><a href="#methods-succeed">succeed</a></li>
+        <li><a href="#methods-if">if</a></li>
+        <li><a href="#methods-is">is</a></li>
+        <li><a href="#methods-exec">exec</a></li>
+        <li><a href="#methods-equals">equals</a></li>
+        <li><a href="#methods-not">not</a></li>
+        <li><a href="#methods-and">and</a></li>
+        <li><a href="#methods-or">or</a></li>
+        <li><a href="#methods-toHTML">toHTML</a></li>
+      </ul>
+
+      <ul class="nav-list">
+        <li><a href="#author">Author</a></li>
+        <li><a href="#author-about">About</a></li>
+        <li><a href="#author-contacts">Contacts</a></li>
+      </ul>
+    </div>
+
+    <!-- content -->
+    <div id="content">
+      <!-- succeed.js -->
+      <div id="succeed-js" class="section">
+        <h1>Succeed.js</h1>
+
+        <div id="succeed-js-about" class="part">
+
+          <h2>About succeed.js</h2>
+          <p>
+            Succeed.js is a front-end JavaScript code testing utility. 
+            It works in the browser and is designed to be easy to use. Checkout the examples to get familiar with the functionality of succeed.js.
+          </p>
+        </div>
+
+        <div id="succeed-js-download" class="part">
+          <h2>Download</h2>
+          <p>
+            You can use the online version of succeed.js for quick tests at <a href="#editor">here</a>!
+            Or if you want to include succeed.js in your project, contribute or just use the .js file you can download succeed.js from the <a href="#github">GitHub repository</a>.
+          </p>
+        </div>
+      </div>
+
+      <!-- examples -->
+      <div id="examples" class="section">
+        <h1>Examples</h1>
+
+        <div id="examples-basic" class="part">
+            <h2>Basic example</h2>
+
+            <div id="ex1" class="example">
+              <textarea id="taEx1" class="console">
+                // Define a variable and assign a number to it
+                let num = 8
+                
+                // Give the test a title
+                succeed('num is of type number')
+                // Specify the subject
+                .if(num)
+                // The actual test
+                .is('number')
+                // Perform the test!
+                .check()
+              </textarea>
+
+              <pre><code id="succeed-container" class="language-markdown"></code></pre>
+            </div>
+        </div>
+
+        <div id="examples-advanced" class="part">
+            <h2>Advanced example</h2>
+
+            <div id="ex2" class="example">
+              <textarea id="taEx2" class="console">
+                // Define function that returns the sum of the parameters
+                const sum = (a, b) => a + b
+                        
+                // Give the test a title
+                succeed('sum is a function and given 3 and 5 it returns a number that equals 8')
+                // Specify the tested subject
+                .if(sum)
+                // Test the type
+                .is('function')
+                // Specify that all tests should pass
+                .and()
+                // Execute with parameters 3 and 5
+                .exec(3, 5)
+                // Test the type of the returned value
+                .is('number')
+                // Use .and() for readability
+                .and()
+                // Test the value
+                .equals(8)
+                // Perform the test!
+                .check()
+              </textarea>
+
+              <pre><code id="succeed-container" class="language-markdown"></code></pre>
+            </div>
+        </div>
+      </div>
+
+      <!-- methods -->
+      <div id="methods" class="section">
+        <h1>Methods</h1>
+
+        <div id="methods-succeed" class="part">
+          <h2>succeed()</h2>
+
+          <p>
+            <b>Syntax</b><br>
+            <span class="code-inline">succeed(testTitle : string)</span>
+            <br><br>
+            <b>Description</b><br>
+            The <span class="code-inline">succeed()</span> method is the base of succeed.js. When executed it returns the base test object onto which you can start chaining the test conditions.
+            <br><br>
+            <b>Usage</b></p>
+<pre class="code-block">succeed('function sum(1, 2) returns a number') // define the test title'</pre>
+        </div>
+
+        <div id="methods-if" class="part">
+          <h2>.if()</h2>
+
+          <p>
+            <b>Syntax</b><br>
+            <span class="code-inline">if(testSubject : any)</span>
+            <br><br>
+            <b>Description</b><br>
+            The <span class="code-inline">if()</span> method comes right after the base definition and it specifies the subject that is being tested. For example if the subject is the function <i>sum</i>, defined as <span class="code-inline">const sum = (a, b) => a + b</span>, then the <i>if()</i> method would look like <span class="code-inline">if(sum)</span>
+            <br><br>
+            <b>Usage</b></p>
+<pre class="code-block">succeed('function sum(1, 2) returns a number') // define the test title'
+.if(sum)                                       // specify the tested subject</pre>
+        </div>
+
+        <div id="methods-is" class="part">
+          <h2>.is()</h2>
+
+          <p>
+            <b>Syntax</b><br>
+            <span class="code-inline">is(type : string)</span>
+            <br><br>
+            <b>Description</b><br>
+            The <span class="code-inline">is()</span> method is a test method which checks if the subject matches the given <i>type</i>.
+            <br><br>
+            <b>Parameters</b><br>
+            <span class="code-inline">type</span> : <i>string</i> = [null, undefined, array, number, object, string, boolean, function, other]
+            <br><br>
+            <b>Usage</b></p>
+<pre class="code-block">succeed('function sum(1, 2) returns a number') // define the test title'
+.if(sum)                                       // specify the tested subject
+.is('function')                                // check if the type of the subject is function</pre>
+        </div>
+        
+        <div id="methods-exec" class="part">
+          <h2>.exec()</h2>
+
+          <p>
+            <b>Syntax</b><br>
+            <span class="code-inline">exec([parameter1, parameter2, ...])</span>
+            <br><br>
+            <b>Description</b><br>
+            The <span class="code-inline">exec()</span> method is applicable only if the tested subject is a function. <span class="code-inline">exec()</span> is a test method which executes the subject function with the given parameters.<br>
+            <b><i>After it is executed the result of the function becomes the new test subject.</i></b>
+            <br><br>
+            <b>Parameters</b><br>
+            Optional. You should supply the number of arguments that the tested function requires.
+            <br><br>
+            <b>Usage</b></p>
+<pre class="code-block">succeed('function sum(1, 2) returns a number) // define the test title'
+.if(sum)                                      // specify the tested subject
+.exec(1, 2)                                   // execute the subject function with the parameters 1 and 2</pre>
+        </div>
+
+        <div id="methods-equals" class="part">
+          <h2>.equals()</h2>
+
+          <p>
+            <b>Syntax</b><br>
+            <span class="code-inline">equals(value : any)</span>
+            <br><br>
+            <b>Description</b><br>
+            The <span class="code-inline">equals()</span> method is a test method which checks if the subject matches the given value, both by value and type.
+            <br><br>
+            <b>Parameters</b><br>
+            <span class="code-inline">value</span> : <i>any</i> The expected value of the tested subject.
+            <br><br>
+            <b>Usage</b></p>
+<pre class="code-block">succeed('function sum(1, 2) returns a number) // define the test title'
+.if(sum)                                      // specify the tested subject
+.exec(1, 2)                                   // execute the subject function with the parameters 1 and 2
+.equals(3)                                    // check if the value of the subject is 3</pre>
+        </div>
+
+        <div id="methods-not" class="part">
+          <h2>.not()</h2>
+
+          <p>
+            <b>Syntax</b><br>
+            <span class="code-inline">not(value : any)</span>
+            <br><br>
+            <b>Description</b><br>
+            The <span class="code-inline">not()</span> method is a test method which checks if the subject's value matches the given <i>value</i>. If the values match then the test fails; if they do not it succeeds.
+            <br><br>
+            <b>Parameters</b><br>
+            <span class="code-inline">value</span> : <i>any</i> A value that is not the expected value of the tested subject.
+            <br><br>
+            <b>Usage</b>
+          </p>
+<pre class="code-block">succeed('function sum(1, 2) returns a number) // define the test title'
+.if(sum)                                      // specify the tested subject
+.exec(1, 2)                                   // execute the subject function with the parameters 1 and 2
+.not(4)                                       // check if the value of the subject is NOT 4</pre>
+        </div>
+
+        <div id="methods-and" class="part">
+          <h2>.and()</h2>
+
+          <p>
+            <b>Syntax</b><br>
+            <span class="code-inline">and()</span>
+            <br><br>
+            <b>Description</b><br>
+            The <span class="code-inline">and()</span> method is a syntactic sugar for combining multiple test methods. It specifies that all test methods should pass in order to pass the test. Without using <span class="code-inline">.and()</span> and <span class="code-inline">.or()</span> as syntactic sugar, by default all test methods must be succesful in order to pass the test.<br>
+            <b><i>Using</i></b> <span class="code-inline">and()</span> <b><i>and</i></b> <span class="code-inline">or()</span> <b><i>together leads to unexpected behaviour!</i></b>
+            <br><br>
+            <b>Usage</b>
+          </p>
+<pre class="code-block">
+succeed('function sum(1, 2) returns a number)  // define the test title'
+.if(sum)                                       // specify the tested subject
+.exec(1, 2)                                    // execute the subject function with the parameters 1 and 2
+.equals(3)                                     // check if the value of the subject is 3
+.and()                                         // syntactic sugar for chaining test methods
+.not(4)                                        // check if the value of the subject is NOT 4
+</pre>
+        </div>
+
+        <div id="methods-or" class="part">
+          <h2>.or()</h2>
+
+          <p>
+            <b>Syntax</b><br>
+            <span class="code-inline">or()</span>
+            <br><br>
+            <b>Description</b><br>
+            The <span class="code-inline">or()</span> method is a logical method that specifies that <b>atleast one</b> of the tests should succeed in order to pass the test. It can be used only once or like <span class="code-inline">and()</span> as syntactic sugar to chain multiple test methods.<br>
+            <b><i>Using</i></b> <span class="code-inline">and()</span> <b><i>and</i></b> <span class="code-inline">or()</span> <b><i>together leads to unexpected behaviour!</i></b>
+            <br><br>
+            <b>Usage</b>
+          </p>
+<pre class="code-block">succeed('function sum(1, 2) returns a number)  // define the test title'
+.if(sum)                                       // specify the tested subject
+.exec(1, 2)                                    // execute the subject function with the parameters 1 and 2
+.equals(3)                                     // check if the value of the subject is 3
+.or()                                          // specify that atleast one of the tests should succeed
+.not(4)                                        // check if the value of the subject is NOT 4</pre>
+        </div>
+
+        <div id="methods-toHTML" class="part">
+          <h2>.toHTML()</h2>
+
+          <p>
+            <b>Syntax</b><br>
+            <span class="code-inline">toHTML()</span>
+            <br><br>
+            <b>Description</b><br>
+            The <span class="code-inline">toHTML()</span> method returns the test result as HTML code. The results are prepared in Markdown syntax and then highlighted with <a href="prismjs.com">Prism.js</a>.
+            <br><br>
+            <b>Usage</b>
+          </p>
+
+<pre class="code-block">succeed('8 is a number')
+.if(8)
+.is('number')
+.check()
+.toHTML()
+
+// Output
+&#60;span class="token title important">&#60;span class="token punctuation">#</span> Test '8 is a number': Succeeded!</span>
+&#60;span class="token title important">&#60;span class="token punctuation">##</span> is(): Succeeded!</span>
+The type of the subject matches the expected type (number).</pre>
+        </div>
+      </div>
+
+      <!-- author -->
+      <div id="author" class="section">
+        <h1>Author</h1>
+
+        <div id="author-about" class="part">
+          <h2>About</h2>
+        </div>
+
+        <div id="author-contacts" class="part">
+          <h2>Contacts</h2>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
